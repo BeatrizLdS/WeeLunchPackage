@@ -1,0 +1,22 @@
+WeeLunch - Ajuda
+
+Carboidratos: 
+A função energética é a principal função dos nutrientes classificados como carboidratos.
+Eles devem compor cerca de 25% de uma refeição.
+Exemplo de carboidratos: Arroz, massas, batata, mandioquinha etc.
+
+Proteínas vegetais e animais:
+As proteínas estão presentes em todos os processos biológicos e são substâncias que exercem diversas funções no organismo.
+Proteínas de origem animal e vegetal devem compor juntas aproximadamente 25% de uma refeição.
+Exemplo de proteínas vegetais: feijão, grão de bico, lentilha, ervilha etc.
+Exemplo de proteínas animais: frango, peixe, carne e ovos.
+
+Verduras e legumes:
+Representam os alimentos mais repletos de vitaminas, minerais e fibras. São importantes para o funcionamento adequado do organismo e do sistema imunológico.
+Devem estar presentes em 50% de uma refeição.
+Exemplo de verduras e legume: Alface, brócolis, cenoura, rúcula, chuchu, tomate etc.
+
+Frutas:
+As frutas são alimentos essenciais em qualquer alimentação. Entretanto, é válido ressaltar que elas devem ser ingeridas como sobremesas ao final de uma refeição e de preferência devem ser escolhidas frutas ricas em vitamina C.
+Exemplos de frutas ricas em vitamina C: Acerola, kiwis, goiaba, lichia, morango, laranja etc.
+

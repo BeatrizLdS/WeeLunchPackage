@@ -23,6 +23,8 @@ func executeFirstNavegationMenu() {
         case "2":
             let menuToOpen = Menu()
             menuToOpen.openMenu()
+        case "3":
+            shell("Open helpdocument.txt")
         case "0":
             print("\n  Tchau Tchau!!")
             control = false
@@ -31,24 +33,6 @@ func executeFirstNavegationMenu() {
         }
         
     } while control
-}
-
-
-func showHomeMenu () {
-    let homeMenu = """
-    
-      ---------------------------------------
-                   🍴 WeeLunch 🍴
-      ---------------------------------------
-    
-           1 - Iniciar novo cardápio
-           2 - Abrir cardápio atual
-           0 - Sair
-    
-      ---------------------------------------
-    """
-    
-    print(homeMenu)
 }
 
 func createNewMenu(menu : Menu) {
@@ -62,21 +46,26 @@ func createNewMenu(menu : Menu) {
 
         switch answer {
         case "1":
-            print("Adicione Carboidrato")
+            showAddFoodInterface(foodType: "Carboidrato")
+            menu.carbohydrateList = menu.addFood(foodList: menu.carbohydrateList)
         case "2":
-            print("Adicione proteína animal")
+            showAddFoodInterface(foodType: "Proteína Animal")
+            menu.animalProteinList = menu.addFood(foodList: menu.animalProteinList)
         case "3":
-            print("Adicione proteína vegetal")
+            showAddFoodInterface(foodType: "Proteína Vegetal")
+            menu.vegetalProteinList = menu.addFood(foodList: menu.vegetalProteinList)
         case "4":
-            print("Adicione verduras e legumes")
+            showAddFoodInterface(foodType: "Verduras e Legumes")
+            menu.vegetableList = menu.addFood(foodList: menu.vegetableList)
         case "5":
-            print("Adicione fruta")
+            showAddFoodInterface(foodType: "Frutas")
+            menu.fruitList = menu.addFood(foodList: menu.fruitList)
         case "6":
             print("Liste todos os itens")
         case "7":
             print("Gere Cardápio")
         case "8":
-            print("Mostre Ajuda")
+            shell("Open helpdocument.txt")
         case "0":
             control = false
         default:
@@ -86,12 +75,31 @@ func createNewMenu(menu : Menu) {
     } while control
 }
 
+func showHomeMenu () {
+    let homeMenu = """
+    
+      ---------------------------------------
+                   🍴 WeeLunch 🍴
+      ---------------------------------------
+    
+           1 - Iniciar novo cardápio
+           2 - Abrir cardápio atual
+           3 - Descrição dos alimentos
+           0 - Sair
+    
+      ---------------------------------------
+    """
+    
+    print(homeMenu)
+}
+
 func showCreationOfMenu (menu : Menu) {
     let homeMenu = """
     
       ---------------------------------------
-      \(centerString(text: "🍴 Criação do cardápio \(menu.menuName)", Totalsize: 39))
+      \(centerString(text: "🍴 Criação do cardápio: \(menu.menuName) 🍴", Totalsize: 39))
       ---------------------------------------
+    
            1 - Adicionar Carboidrato
            2 - Adicionar Proteína Animal
            3 - Adicionar Proteína Vegetal
@@ -99,8 +107,9 @@ func showCreationOfMenu (menu : Menu) {
            5 - Adicionar Fruta
            6 - Listar Todos os Alimentos
            7 - Gerar Cardápio
-           8 - Ajuda
-           0 - Sair
+           8 - Descrição dos alimentos
+           0 - Voltar
+    
       ---------------------------------------
     """
     
@@ -121,8 +130,18 @@ func showErrorMesage (erro: String) {
     pressEnterToContinue()
 }
 
+func showAddFoodInterface(foodType: String){
+    let title = """
+    
+      ---------------------------------------
+        \(centerString(text: "Adicinar \(foodType)", Totalsize: 40))
+      ---------------------------------------
+    """
+    print(title)
+}
+
 func receiveAnswer() -> String{
-    let textPrint = "  Comando:"
+    let textPrint = "  comando:"
     
     var answer = ""
     

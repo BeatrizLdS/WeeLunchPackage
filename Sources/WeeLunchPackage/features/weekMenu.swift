@@ -11,6 +11,12 @@ class Menu {
     
     var menuName : String = ""
     
+    var carbohydrateList : [String] = []
+    var animalProteinList : [String] = []
+    var vegetalProteinList : [String] = []
+    var vegetableList : [String] = []
+    var fruitList : [String] = []
+    
     init () {
         print("")
         print("  Digite o nome do cardápio: ", terminator: "")
@@ -25,8 +31,42 @@ class Menu {
         return fileURL
     }
     
-    func writeTextFile () {
+    func addFood(foodList: [String]) -> [String]{
+        let food = getFoodName()
+        var returnList = foodList
         
+        if ( checkIfItAlreadyExistsInTheList(evaluatedObject: food, list: foodList) ) {
+            showErrorMesage(erro: "Alimento já existe")
+        }
+        else {
+            returnList.append(food)
+        }
+        
+        return returnList
+    }
+    
+    func checkIfItAlreadyExistsInTheList(evaluatedObject: String, list: [String]) -> Bool{
+        
+        var control = false
+        var index = 0
+        
+        while (control == false && index < list.count){
+            if(list[index].uppercased() == evaluatedObject.uppercased()) {
+                control = true
+            }
+            index += 1
+        }
+        
+        return control
+    }
+    
+    func getFoodName () -> String{
+        print("\n  Nome do alimento: ", terminator: "")
+        let food = readLine()
+        return food!
+    }
+    
+    func writeTextFile () {
         let writeString = "Essa é a String que vai ser escrita no documento!"
         
         do {
@@ -35,7 +75,6 @@ class Menu {
             print("Não foi possível escrever no arquivo! Tente novamente.")
             print(error)
         }
-        
         blockWriting()
     }
      
@@ -69,7 +108,7 @@ class Menu {
     
     func freeWriting() {
         do{
-            try FileManager.default.setAttributes([FileAttributeKey.immutable : false], ofItemAtPath: "/Users/beatrizleoneldasilva/Documents/Menu.txt")
+            try FileManager.default.setAttributes([FileAttributeKey.immutable : false], ofItemAtPath: menuURL.path)
         }
         catch{
             showErrorMesage(erro: "Cardápio não desbloqueado")
@@ -78,13 +117,12 @@ class Menu {
     
     func blockWriting() {
         do{
-            try FileManager.default.setAttributes([FileAttributeKey.immutable : false], ofItemAtPath: "/Users/beatrizleoneldasilva/Documents/Menu.txt")
+            try FileManager.default.setAttributes([FileAttributeKey.immutable : true], ofItemAtPath: menuURL.path)
         }
         catch{
             showErrorMesage(erro: "Cardápio não bloqueado")
         }
     }
-    
     
 }
 
