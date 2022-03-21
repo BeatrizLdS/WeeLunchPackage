@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 func shell(_ command: String) {
     let task = Process()
     task.launchPath = "/bin/zsh/"

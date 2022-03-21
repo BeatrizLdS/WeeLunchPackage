@@ -1,6 +1,6 @@
 import Foundation
 
-executeFirstMenu()
+executeFirstNavegationMenu()
 
 
 
