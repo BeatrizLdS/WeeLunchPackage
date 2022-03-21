@@ -57,7 +57,7 @@ func createNewMenu(menu : Menu) {
     
     repeat {
         
-        showCreationOfMenu()
+        showCreationOfMenu(menu: menu)
         let answer = receiveAnswer()
 
         switch answer {
@@ -78,7 +78,6 @@ func createNewMenu(menu : Menu) {
         case "8":
             print("Mostre Ajuda")
         case "0":
-            print("Volte para menu principal")
             control = false
         default:
             showErrorMesage(erro: "Entrada inválida")
@@ -93,7 +92,6 @@ func showCreationOfMenu (menu : Menu) {
       ---------------------------------------
       \(centerString(text: "🍴 Criação do cardápio \(menu.menuName)", Totalsize: 39))
       ---------------------------------------
-    
            1 - Adicionar Carboidrato
            2 - Adicionar Proteína Animal
            3 - Adicionar Proteína Vegetal
@@ -103,7 +101,6 @@ func showCreationOfMenu (menu : Menu) {
            7 - Gerar Cardápio
            8 - Ajuda
            0 - Sair
-    
       ---------------------------------------
     """
     
@@ -125,7 +122,7 @@ func showErrorMesage (erro: String) {
 }
 
 func receiveAnswer() -> String{
-    let textPrint = "  Resposta:"
+    let textPrint = "  Comando:"
     
     var answer = ""
     
