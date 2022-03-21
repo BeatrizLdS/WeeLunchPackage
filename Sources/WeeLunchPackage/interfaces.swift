@@ -18,10 +18,10 @@ func executeFirstNavegationMenu() {
 
         switch answer {
         case "1":
-            var menuToCreate = Menu()
+            let menuToCreate = Menu()
             createNewMenu(menu: menuToCreate)
         case "2":
-            var menuToOpen = Menu()
+            let menuToOpen = Menu()
             menuToOpen.openMenu()
         case "0":
             print("\n  Tchau Tchau!!")
