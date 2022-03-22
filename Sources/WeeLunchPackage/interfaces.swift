@@ -46,22 +46,22 @@ func createNewMenu(menu : Menu) {
 
         switch answer {
         case "1":
-            showAddFoodInterface(foodType: "Carboidrato")
+            print(showTitle(title: "Adicinar Carboidrato"), terminator: "")
             menu.carbohydrateList = menu.addFood(foodList: menu.carbohydrateList)
         case "2":
-            showAddFoodInterface(foodType: "Proteína Animal")
+            print(showTitle(title: "Adicinar Proteína Animal"), terminator: "")
             menu.animalProteinList = menu.addFood(foodList: menu.animalProteinList)
         case "3":
-            showAddFoodInterface(foodType: "Proteína Vegetal")
+            print(showTitle(title: "Adicinar Proteína Vegetal"), terminator: "")
             menu.vegetalProteinList = menu.addFood(foodList: menu.vegetalProteinList)
         case "4":
-            showAddFoodInterface(foodType: "Verduras e Legumes")
+            print(showTitle(title: "Adicinar Verduras e Legumes"), terminator: "")
             menu.vegetableList = menu.addFood(foodList: menu.vegetableList)
         case "5":
-            showAddFoodInterface(foodType: "Frutas")
+            print(showTitle(title: "Adicinar Frutas"), terminator: "")
             menu.fruitList = menu.addFood(foodList: menu.fruitList)
         case "6":
-            print("Liste todos os itens")
+            inspectFoodListMenu(menu : menu)
         case "7":
             print("Gere Cardápio")
         case "8":
@@ -75,12 +75,38 @@ func createNewMenu(menu : Menu) {
     } while control
 }
 
+func inspectFoodListMenu(menu : Menu) {
+    
+    var control : Bool = true
+    
+    repeat {
+        
+        showRemotionMenu(menu: menu)
+        let answer = receiveAnswer()
+
+        switch answer {
+        case "1":
+            menu.removeFood(foodType: 1)
+        case "2":
+            menu.removeFood(foodType: 2)
+        case "3":
+            menu.removeFood(foodType: 3)
+        case "4":
+            menu.removeFood(foodType: 4)
+        case "5":
+            menu.removeFood(foodType: 5)
+        case "0":
+            control = false
+        default:
+            showErrorMesage(erro: "Entrada inválida")
+        }
+        
+    } while control
+}
+
 func showHomeMenu () {
     let homeMenu = """
-    
-      ---------------------------------------
-                   🍴 WeeLunch 🍴
-      ---------------------------------------
+      \(showTitle(title: "🍴 WeeLunch 🍴"))
     
            1 - Iniciar novo cardápio
            2 - Abrir cardápio atual
@@ -95,10 +121,7 @@ func showHomeMenu () {
 
 func showCreationOfMenu (menu : Menu) {
     let homeMenu = """
-    
-      ---------------------------------------
-      \(centerString(text: "🍴 Criação do cardápio: \(menu.menuName) 🍴", Totalsize: 39))
-      ---------------------------------------
+      \(showTitle(title: "🍴 Criação do cardápio: \(menu.menuName) 🍴"))
     
            1 - Adicionar Carboidrato
            2 - Adicionar Proteína Animal
@@ -116,12 +139,29 @@ func showCreationOfMenu (menu : Menu) {
     print(homeMenu)
 }
 
-func showErrorMesage (erro: String) {
-    let errorAnswerMessage = """
+func showRemotionMenu (menu : Menu) {
+    
+    print(showTitle(title: "🍴 Alimentos Listados 🍴"))
+    menu.listAvailabeFoods()
+    
+    let homeMenu = """
     
       ---------------------------------------
-      \(centerString(text: "‼️ Erro: \(erro) ‼️", Totalsize: 40))
+           1 - Remover Carboidrato
+           2 - Remover Proteína Animal
+           3 - Remover Proteína Vegetal
+           4 - Remover Verduras ou Legumes
+           5 - Remover Fruta
+           0 - Voltar
       ---------------------------------------
+    """
+    
+    print(homeMenu)
+}
+
+func showErrorMesage (erro: String) {
+    let errorAnswerMessage = """
+      \(showTitle(title: "‼️ Erro: \(erro) ‼️"))
                   Pressione Enter
                   para continuar.
       ---------------------------------------
@@ -130,14 +170,25 @@ func showErrorMesage (erro: String) {
     pressEnterToContinue()
 }
 
-func showAddFoodInterface(foodType: String){
+func showSuccessMessage (successAtivitie: String){
+    let successMessage = """
+      \(showTitle(title: "✅ \(successAtivitie) realizada com sucesso ✅"))
+                  Pressione Enter
+                  para continuar.
+      ---------------------------------------
+    """
+    print(successMessage)
+    pressEnterToContinue()
+}
+
+func showTitle(title: String) -> String{
     let title = """
     
       ---------------------------------------
-        \(centerString(text: "Adicinar \(foodType)", Totalsize: 40))
+      \(centerString(text: "\(title)", Totalsize: 40))
       ---------------------------------------
     """
-    print(title)
+    return title
 }
 
 func receiveAnswer() -> String{
