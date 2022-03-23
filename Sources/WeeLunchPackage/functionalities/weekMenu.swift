@@ -57,7 +57,7 @@ class Menu {
         if(list.isEmpty == false){
             print("\n  \(listType):")
             for i in stride(from: 0, to: (list.count - 1), by: 1){
-                print("  ", list[i], ",", separator: "")
+                print("   ", list[i], ",", separator: "")
             }
             print("  ", list[list.count - 1], terminator: ".\n")
         }
@@ -98,26 +98,39 @@ class Menu {
         if (checkExistenceOfMenu()){
             FileManipulation.freeWriting(url: menuURL)
         }
-        FileManipulation.writeTextFile(text: generateMenu(), url: menuURL)
+//        FileManipulation.writeTextFile(text: generateMenu(), url: menuURL)
+        generateMenu()
     }
     
-    func generateMenu () -> String{
-
-        var text = "\(showTitle(title: "🍴 WeekLunch - \(menuName) 🍴"))\n"
-
-//        var newFoods : [String] = []
-//        var lastDayFoods : [String] = ["", "", "", "", "", ""]
+    func generateMenu (){
+        var lastDayFoods : [String] = ["", "", "", "", "", ""]
 
         for i in stride(from: 0, to: 7, by: 1){
-            text = text + "  " + weekdays[i] + ":\n"
-            text = text + "\n"
+            lastDayFoods = chooseLunchOfTheDay(lastDayLunch: lastDayFoods)
+            print(lastDayFoods)
         }
-        return text
     }
     
+    func chooseLunchOfTheDay(lastDayLunch: [String]) -> [String]{
+        var dayLunch: [String] = []
+        var vegetableAuxiliaryList : [String] = vegetableList
+        
+        print("Tamanho lista de proteina animal: \(animalProteinList.count)")
+        dayLunch.append(chooseFoodWithNoRepetitionFrom(lastFood: lastDayLunch[0], list: carbohydrateList))
+        dayLunch.append(chooseFoodWithNoRepetitionFrom(lastFood: lastDayLunch[1], list: animalProteinList))
+        dayLunch.append(chooseFoodWithNoRepetitionFrom(lastFood: lastDayLunch[2], list: vegetalProteinList))
+        
+        dayLunch.append(chooseFoodWithNoRepetitionFrom(lastFood: lastDayLunch[3], list: vegetableList))
+        vegetableAuxiliaryList = generateListWithoutOneElement(element: dayLunch[3], list: vegetableList)
+        dayLunch.append(chooseFoodWithNoRepetitionFrom(lastFood: lastDayLunch[4], list: vegetableAuxiliaryList))
+        
+        dayLunch.append(chooseFoodWithNoRepetitionFrom(lastFood: lastDayLunch[5], list: fruitList))
+        return dayLunch
+    }
 
     func chooseFoodWithNoRepetitionFrom(lastFood: String, list: [String]) -> String{
         let listSize = carbohydrateList.count
+        print("Tamanho da lista: \(listSize)")
         var food = ""
         if (listSize > 0){
             if (listSize == 1){
@@ -125,11 +138,20 @@ class Menu {
             }
             else{
                 repeat {
-                    food = list.randomElement()!
+                    food = list.randomElement() ?? ""
                 } while (food == lastFood)
             }
         }
         return food
+    }
+    
+    func generateListWithoutOneElement(element: String, list: [String]) -> [String]{
+        var updatedList = list
+        let indexInVegetableList = checkIfItAlreadyExistsInTheList(evaluatedObject: element, list: list)
+        if (indexInVegetableList >= 0){
+            updatedList.remove(at: indexInVegetableList)
+        }
+        return updatedList
     }
     
     func checkIfItAlreadyExistsInTheList(evaluatedObject: String, list: [String]) -> Int{

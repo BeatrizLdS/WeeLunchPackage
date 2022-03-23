@@ -63,7 +63,12 @@ func createNewMenu(menu : Menu) {
         case "6":
             inspectFoodListMenu(menu : menu)
         case "7":
-            print(menu.chooseFoodWithNoRepetitionFrom(lastFood: "", list: menu.carbohydrateList))
+            menu.carbohydrateList = ["Arroz Branco", "Arroz Integral"]
+            menu.animalProteinList  = ["Isca de tilápia"]
+            menu.vegetalProteinList = ["Feijão tropeiro", "Feijão verde"]
+            menu.vegetableList = ["Alface", "Tomace", "Brócolis", "Cenoura"]
+            menu.fruitList = ["Laranja", "Manga", "Morango"]
+            menu.creatMenu()
         case "8":
             shell("Open helpdocument.txt")
         case "0":
