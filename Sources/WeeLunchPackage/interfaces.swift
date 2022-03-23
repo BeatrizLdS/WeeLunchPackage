@@ -86,15 +86,15 @@ func inspectFoodListMenu(menu : Menu) {
 
         switch answer {
         case "1":
-            menu.removeFood(foodType: 1)
+            menu.removeFood(foodType: "carbohydrate")
         case "2":
-            menu.removeFood(foodType: 2)
+            menu.removeFood(foodType: "animalProtein")
         case "3":
-            menu.removeFood(foodType: 3)
+            menu.removeFood(foodType: "vegetalProtein")
         case "4":
-            menu.removeFood(foodType: 4)
+            menu.removeFood(foodType: "vegetable")
         case "5":
-            menu.removeFood(foodType: 5)
+            menu.removeFood(foodType: "fruit")
         case "0":
             control = false
         default:

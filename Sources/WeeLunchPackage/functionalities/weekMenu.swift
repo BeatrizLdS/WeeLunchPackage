@@ -42,61 +42,7 @@ class Menu {
         
         return returnList
     }
-    
-    func removeFood (foodType: Int) {
-        let foodName = getFoodName()
-        var foodIndex = -1
-        
-        if (foodType == 1){
-            foodIndex = checkIfItAlreadyExistsInTheList(evaluatedObject: foodName, list: carbohydrateList)
-            if (foodIndex >= 0){
-                carbohydrateList.remove(at: foodIndex)
-            }
-        } else if (foodType == 2){
-            foodIndex = checkIfItAlreadyExistsInTheList(evaluatedObject: foodName, list: animalProteinList)
-            if (foodIndex >= 0){
-                animalProteinList.remove(at: foodIndex)
-            }
-        } else if (foodType == 3){
-            foodIndex = checkIfItAlreadyExistsInTheList(evaluatedObject: foodName, list: vegetalProteinList)
-            if (foodIndex >= 0){
-                vegetalProteinList.remove(at: foodIndex)
-            }
-        } else if (foodType == 4){
-            foodIndex = checkIfItAlreadyExistsInTheList(evaluatedObject: foodName, list: vegetableList)
-            if (foodIndex >= 0){
-                vegetableList.remove(at: foodIndex)
-            }
-        } else {
-            foodIndex = checkIfItAlreadyExistsInTheList(evaluatedObject: foodName, list: fruitList)
-            if (foodIndex >= 0){
-                fruitList.remove(at: foodIndex)
-            }
-        }
-        
-        if (foodIndex < 0){
-            showErrorMesage(erro: "Alimento não existe")
-        } else {
-            showSuccessMessage(successAtivitie: "Remoção")
-        }
-        
-    }
-    
-    func checkIfItAlreadyExistsInTheList(evaluatedObject: String, list: [String]) -> Int{
-        
-        var control = -1
-        var index = 0
-        
-        while (control == -1 && index < list.count){
-            if(list[index].uppercased() == evaluatedObject.uppercased()) {
-                control = index
-            }
-            index += 1
-        }
-        
-        return control
-    }
-    
+      
     func listAvailabeFoods(){
         showList(list: carbohydrateList, listType: "Carboidratos")
         showList(list: animalProteinList, listType: "Proteínas Animais")
@@ -107,17 +53,55 @@ class Menu {
     
     func showList(list: [String], listType: String) {
         if(list.isEmpty == false){
-            let body = """
-            
-              \(listType):
-                
-            """
-            print(body, terminator: "")
+            print("\n  \(listType):")
             for i in stride(from: 0, to: (list.count - 1), by: 1){
-                print(list[i], terminator: ", ")
+                print("  ", list[i], ",", separator: "")
             }
-            print(list[list.count - 1], terminator: ".\n")
+            print("  ", list[list.count - 1], terminator: ".\n")
         }
+    }
+    
+    func removeFood (foodType: String) {
+        let foodName = getFoodName()
+        switch foodType{
+        case "carbohydrate":
+            carbohydrateList = removeFoodFrom(foodName: foodName, foodList: carbohydrateList)
+        case "animalProtein":
+            animalProteinList = removeFoodFrom(foodName: foodName, foodList: animalProteinList)
+        case "vegetalProtein":
+            vegetalProteinList = removeFoodFrom(foodName: foodName, foodList: vegetalProteinList)
+        case "vegetable":
+            vegetableList = removeFoodFrom(foodName: foodName, foodList: vegetableList)
+        case "fruit":
+            fruitList = removeFoodFrom(foodName: foodName, foodList: fruitList)
+        default:
+            print("Error: The desired operation is non-existent")
+        }
+    }
+    
+    func removeFoodFrom(foodName: String, foodList: [String]) -> [String]{
+        var updatedList = foodList
+        let foodIndex = checkIfItAlreadyExistsInTheList(evaluatedObject: foodName, list: updatedList)
+        if (foodIndex >= 0){
+            updatedList.remove(at: foodIndex)
+            showSuccessMessage(successAtivitie: "Remoção")
+        }
+        else{
+            showErrorMesage(erro: "Alimento inexistente")
+        }
+        return updatedList
+    }
+    
+    func checkIfItAlreadyExistsInTheList(evaluatedObject: String, list: [String]) -> Int{
+        var control = -1
+        var index = 0
+        while (control == -1 && index < list.count){
+            if(list[index].uppercased() == evaluatedObject.uppercased()) {
+                control = index
+            }
+            index += 1
+        }
+        return control
     }
     
     func getFoodName () -> String{
