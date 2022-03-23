@@ -63,7 +63,7 @@ func createNewMenu(menu : Menu) {
         case "6":
             inspectFoodListMenu(menu : menu)
         case "7":
-            print("Gere Cardápio")
+            print(menu.chooseFoodWithNoRepetitionFrom(lastFood: "", list: menu.carbohydrateList))
         case "8":
             shell("Open helpdocument.txt")
         case "0":

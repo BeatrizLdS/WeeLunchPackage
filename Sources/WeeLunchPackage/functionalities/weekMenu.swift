@@ -17,6 +17,8 @@ class Menu {
     var vegetableList : [String] = []
     var fruitList : [String] = []
     
+    let weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    
     var menuURL: URL
     {
         FileManipulation.generateURL(fileName: menuName, fileType: "txt")
@@ -92,6 +94,44 @@ class Menu {
         return updatedList
     }
     
+    func creatMenu() {
+        if (checkExistenceOfMenu()){
+            FileManipulation.freeWriting(url: menuURL)
+        }
+        FileManipulation.writeTextFile(text: generateMenu(), url: menuURL)
+    }
+    
+    func generateMenu () -> String{
+
+        var text = "\(showTitle(title: "🍴 WeekLunch - \(menuName) 🍴"))\n"
+
+//        var newFoods : [String] = []
+//        var lastDayFoods : [String] = ["", "", "", "", "", ""]
+
+        for i in stride(from: 0, to: 7, by: 1){
+            text = text + "  " + weekdays[i] + ":\n"
+            text = text + "\n"
+        }
+        return text
+    }
+    
+
+    func chooseFoodWithNoRepetitionFrom(lastFood: String, list: [String]) -> String{
+        let listSize = carbohydrateList.count
+        var food = ""
+        if (listSize > 0){
+            if (listSize == 1){
+                food = list[0]
+            }
+            else{
+                repeat {
+                    food = list.randomElement()!
+                } while (food == lastFood)
+            }
+        }
+        return food
+    }
+    
     func checkIfItAlreadyExistsInTheList(evaluatedObject: String, list: [String]) -> Int{
         var control = -1
         var index = 0
@@ -122,12 +162,7 @@ class Menu {
         return FileManipulation.checkExistentFile(url: menuURL)
     }
     
-    func creatMenu() {
-        if (checkExistenceOfMenu()){
-            FileManipulation.freeWriting(url: menuURL)
-        }
-        FileManipulation.writeTextFile(url: menuURL)
-    }
+    
 }
 
 

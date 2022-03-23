@@ -28,15 +28,14 @@ class FileManipulation {
 
     }
     
-    static func writeTextFile (url: URL) {
-        let writeString = "Essa é a String que vai ser escrita no documento!"
-        
+    static func writeTextFile (text: String, url: URL) {
         do {
-            try writeString.write(to: url, atomically: true, encoding: String.Encoding.utf8)
+            try text.write(to: url, atomically: true, encoding: String.Encoding.utf8)
         } catch let error as NSError {
-            print("Não foi possível escrever no arquivo! Tente novamente.")
+            print("Not is possible to write in the file! Try again.")
             print(error)
         }
+        
         blockWriting(url: url)
     }
     
@@ -45,7 +44,7 @@ class FileManipulation {
             try FileManager.default.setAttributes([FileAttributeKey.immutable : false], ofItemAtPath: url.path)
         }
         catch{
-            showErrorMesage(erro: "Cardápio não desbloqueado")
+            showErrorMesage(erro: "Edição não liberada")
         }
     }
     
