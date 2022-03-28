@@ -22,7 +22,3 @@ func shell(_ command: String) {
     print(output)
 }
 
-//let path = ""
-//shell("ls " + path)
-//shell("pwd")
-//shell("cat ~/.zsh_history > history_log.txt")
