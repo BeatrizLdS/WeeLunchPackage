@@ -13,7 +13,7 @@ func showHomeMenu () {
     
            1 - Iniciar novo cardápio
            2 - Abrir cardápio existente
-           3 - Descrição dos alimentos
+           3 - Descrição dos cardápios
            0 - Sair do aplicativo
     
       ---------------------------------------

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class FileManipulation {
+struct FileManipulation {
     
     static func generateURL(fileName: String, fileType: String) -> URL
     {
