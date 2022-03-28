@@ -12,7 +12,7 @@ func showHomeMenu () {
       \(generateTitle(title: "🍴 WeeLunch 🍴"))
     
            1 - Iniciar novo cardápio
-           2 - Abrir cardápio atual
+           2 - Abrir cardápio existente
            3 - Descrição dos alimentos
            0 - Sair do aplicativo
     
@@ -33,7 +33,7 @@ func showCreationOfMenu (menu : Menu) {
            5 - Adicionar Fruta
            6 - Listar Todos os Alimentos
            7 - Gerar Cardápio
-           8 - Descrição dos alimentos
+           8 - Descrição dos cardápios
            0 - Voltar
     
       ---------------------------------------

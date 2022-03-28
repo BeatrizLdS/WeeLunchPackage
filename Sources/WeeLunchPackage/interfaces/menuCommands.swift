@@ -26,7 +26,7 @@ func executeFirstNavegationMenu() {
         case "3":
             shell("Open helpdocument.txt")
         case "0":
-            print("\n  Tchau Tchau!!")
+            print("  !WeeLuch Finalizado!")
             control = false
         default:
             showErrorMesage(erro: "Entrada inválida")
