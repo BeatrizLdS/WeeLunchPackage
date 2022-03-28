@@ -46,29 +46,30 @@ func createNewMenu(menu : Menu) {
 
         switch answer {
         case "1":
-            print(showTitle(title: "Adicinar Carboidrato"), terminator: "")
+            print(generateTitle(title: "Adicinar Carboidrato"), terminator: "")
             menu.carbohydrateList = menu.addFood(foodList: menu.carbohydrateList)
         case "2":
-            print(showTitle(title: "Adicinar Proteína Animal"), terminator: "")
+            print(generateTitle(title: "Adicinar Proteína Animal"), terminator: "")
             menu.animalProteinList = menu.addFood(foodList: menu.animalProteinList)
         case "3":
-            print(showTitle(title: "Adicinar Proteína Vegetal"), terminator: "")
+            print(generateTitle(title: "Adicinar Proteína Vegetal"), terminator: "")
             menu.vegetalProteinList = menu.addFood(foodList: menu.vegetalProteinList)
         case "4":
-            print(showTitle(title: "Adicinar Verduras e Legumes"), terminator: "")
+            print(generateTitle(title: "Adicinar Verduras e Legumes"), terminator: "")
             menu.vegetableList = menu.addFood(foodList: menu.vegetableList)
         case "5":
-            print(showTitle(title: "Adicinar Frutas"), terminator: "")
+            print(generateTitle(title: "Adicinar Frutas"), terminator: "")
             menu.fruitList = menu.addFood(foodList: menu.fruitList)
         case "6":
             inspectFoodListMenu(menu : menu)
         case "7":
             menu.carbohydrateList = ["Arroz Branco", "Arroz Integral"]
-            menu.animalProteinList  = ["Isca de tilápia"]
+            menu.animalProteinList  = [""]
             menu.vegetalProteinList = ["Feijão tropeiro", "Feijão verde"]
-            menu.vegetableList = ["Alface", "Tomace", "Brócolis", "Cenoura"]
+            menu.vegetableList = ["Alface", "Tomate", "Brócolis", "Cenoura"]
             menu.fruitList = ["Laranja", "Manga", "Morango"]
-            menu.creatMenu()
+            menu.creatFileMenu()
+            control = false
         case "8":
             shell("Open helpdocument.txt")
         case "0":
@@ -111,12 +112,12 @@ func inspectFoodListMenu(menu : Menu) {
 
 func showHomeMenu () {
     let homeMenu = """
-      \(showTitle(title: "🍴 WeeLunch 🍴"))
+      \(generateTitle(title: "🍴 WeeLunch 🍴"))
     
            1 - Iniciar novo cardápio
            2 - Abrir cardápio atual
            3 - Descrição dos alimentos
-           0 - Sair
+           0 - Sair do aplicativo
     
       ---------------------------------------
     """
@@ -126,7 +127,7 @@ func showHomeMenu () {
 
 func showCreationOfMenu (menu : Menu) {
     let homeMenu = """
-      \(showTitle(title: "🍴 Criação do cardápio: \(menu.menuName) 🍴"))
+      \(generateTitle(title: "🍴 Criação do cardápio: \(menu.menuName) 🍴"))
     
            1 - Adicionar Carboidrato
            2 - Adicionar Proteína Animal
@@ -146,7 +147,7 @@ func showCreationOfMenu (menu : Menu) {
 
 func showRemotionMenu (menu : Menu) {
     
-    print(showTitle(title: "🍴 Alimentos Listados 🍴"))
+    print(generateTitle(title: "🍴 Alimentos Listados 🍴"))
     menu.listAvailabeFoods()
     
     let homeMenu = """
@@ -166,7 +167,7 @@ func showRemotionMenu (menu : Menu) {
 
 func showErrorMesage (erro: String) {
     let errorAnswerMessage = """
-      \(showTitle(title: "‼️ Erro: \(erro) ‼️"))
+      \(generateTitle(title: "‼️ Erro: \(erro) ‼️"))
                   Pressione Enter
                   para continuar.
       ---------------------------------------
@@ -177,7 +178,7 @@ func showErrorMesage (erro: String) {
 
 func showSuccessMessage (successAtivitie: String){
     let successMessage = """
-      \(showTitle(title: "✅ \(successAtivitie) realizada com sucesso ✅"))
+      \(generateTitle(title: "✅ \(successAtivitie) realizada com sucesso ✅"))
                   Pressione Enter
                   para continuar.
       ---------------------------------------
@@ -186,7 +187,7 @@ func showSuccessMessage (successAtivitie: String){
     pressEnterToContinue()
 }
 
-func showTitle(title: String) -> String{
+func generateTitle(title: String) -> String{
     let title = """
     
       ---------------------------------------

@@ -29,6 +29,7 @@ class Menu {
         menuName = readLine()!
     }
     
+    //add available foods of week
     func addFood(foodList: [String]) -> [String]{
         let food = getFoodName()
         var returnList = foodList
@@ -43,7 +44,26 @@ class Menu {
         
         return returnList
     }
+    
+    func getFoodName () -> String{
+        print("\n  Nome do alimento: ", terminator: "")
+        let food = readLine()
+        return food!
+    }
       
+    func checkIfItAlreadyExistsInTheList(evaluatedObject: String, list: [String]) -> Int{
+        var control = -1
+        var index = 0
+        while (control == -1 && index < list.count){
+            if(list[index].uppercased() == evaluatedObject.uppercased()) {
+                control = index
+            }
+            index += 1
+        }
+        return control
+    }
+    
+    //functions to show all existing available foods
     func listAvailabeFoods(){
         showList(list: carbohydrateList, listType: "Carboidratos")
         showList(list: animalProteinList, listType: "Proteínas Animais")
@@ -61,7 +81,8 @@ class Menu {
             print("  ", list[list.count - 1], terminator: ".\n")
         }
     }
-    
+
+    //functions to remove food from list of available foods
     func removeFood (foodType: String) {
         let foodName = getFoodName()
         switch foodType{
@@ -93,37 +114,58 @@ class Menu {
         return updatedList
     }
     
-    func creatMenu() {
+    //functions to generate week menu
+    func creatFileMenu() {
         if (checkExistenceOfMenu()){
             FileManipulation.freeWriting(url: menuURL)
         }
-//        FileManipulation.writeTextFile(text: generateMenu(), url: menuURL)
-        generateMenu()
+        FileManipulation.writeTextFile(text: generateTextMenu(), url: menuURL)
+        openMenu()
     }
     
-    func generateMenu (){
-        var lastDayFoods : [String] = ["", "", "", "", "", ""]
+    func checkExistenceOfMenu () -> Bool{
+        return FileManipulation.checkExistentFile(url: menuURL)
+    }
+    
+    func generateTextMenu () -> String{
+        var dayFoods : [String] = ["", "", "", "", "", ""]
+        var finalMenuText = generateTitle(title: "Cardápio da semana")
 
-        for _ in stride(from: 0, to: 7, by: 1){
-            lastDayFoods = chooseLunchOfTheDay(lastDayLunch: lastDayFoods)
-            print(lastDayFoods)
+        for i in stride(from: 0, to: 7, by: 1){
+            dayFoods = chooseLunchOfTheDay(lastDayLunch: dayFoods)
+            
+            var lunchDayText = ""
+            lunchDayText.append("\n  \(weekdays[i]) :\n")
+            lunchDayText.append(convertMenuListInText(menuList: dayFoods))
+            finalMenuText.append(lunchDayText)
         }
+        return finalMenuText
     }
     
     func chooseLunchOfTheDay(lastDayLunch: [String]) -> [String]{
         var dayLunch: [String] = ["","","","","",""]
         
-        dayLunch[0] = chooseFoodWithNoRepetitionFrom(lastFood: lastDayLunch[0], list: carbohydrateList)
-        dayLunch[1] = chooseFoodWithNoRepetitionFrom(lastFood: lastDayLunch[1], list: animalProteinList)
-        dayLunch[2] = chooseFoodWithNoRepetitionFrom(lastFood: lastDayLunch[2], list: vegetalProteinList)
-        dayLunch[3] = chooseFoodWithNoRepetitionFrom(lastFood: lastDayLunch[3], list: vegetableList)
-        dayLunch[4] = chooseFoodWithNoRepetitionFrom(lastFood: dayLunch[3], list: vegetableList)
-        dayLunch[5] = chooseFoodWithNoRepetitionFrom(lastFood: lastDayLunch[5], list: fruitList)
+        dayLunch[0] = chooseFoodWithNoRepetitionFrom(doNotRepeat: lastDayLunch[0], list: carbohydrateList)
+        dayLunch[1] = chooseFoodWithNoRepetitionFrom(doNotRepeat: lastDayLunch[1], list: animalProteinList)
+        dayLunch[2] = chooseFoodWithNoRepetitionFrom(doNotRepeat: lastDayLunch[2], list: vegetalProteinList)
+        dayLunch[3] = chooseFoodWithNoRepetitionFrom(doNotRepeat: lastDayLunch[3], list: vegetableList)
+        dayLunch[4] = chooseFoodWithNoRepetitionFrom(doNotRepeat: dayLunch[3], list: vegetableList)
+        dayLunch[5] = chooseFoodWithNoRepetitionFrom(doNotRepeat: lastDayLunch[5], list: fruitList)
         
         return dayLunch
     }
+    
+    func convertMenuListInText (menuList: [String]) -> String{
+        var text = ""
+        for i in menuList{
+            if (i != ""){
+                text.append("   \(i)\n")
+            }
+        }
+        return text
+    }
 
-    func chooseFoodWithNoRepetitionFrom(lastFood: String, list: [String]) -> String{
+    func chooseFoodWithNoRepetitionFrom(doNotRepeat: String, list: [String]) -> String{
         let listSize = list.count
         var food = ""
         if (listSize > 0){
@@ -133,39 +175,13 @@ class Menu {
             else{
                 repeat {
                     food = list.randomElement() ?? ""
-                } while (food == lastFood)
+                } while (food == doNotRepeat)
             }
         }
         return food
     }
-    
-    func generateListWithoutOneElement(element: String, list: [String]) -> [String]{
-        var updatedList = list
-        let indexInVegetableList = checkIfItAlreadyExistsInTheList(evaluatedObject: element, list: list)
-        if (indexInVegetableList >= 0){
-            updatedList.remove(at: indexInVegetableList)
-        }
-        return updatedList
-    }
-    
-    func checkIfItAlreadyExistsInTheList(evaluatedObject: String, list: [String]) -> Int{
-        var control = -1
-        var index = 0
-        while (control == -1 && index < list.count){
-            if(list[index].uppercased() == evaluatedObject.uppercased()) {
-                control = index
-            }
-            index += 1
-        }
-        return control
-    }
-    
-    func getFoodName () -> String{
-        print("\n  Nome do alimento: ", terminator: "")
-        let food = readLine()
-        return food!
-    }
      
+    //function to open the week menu
     func openMenu(){
         if (checkExistenceOfMenu()) {
             shell("open \(menuURL.path)")
@@ -173,18 +189,5 @@ class Menu {
             showErrorMesage(erro: "Nenhum cardápio existente")
         }
     }
-    
-    func checkExistenceOfMenu () -> Bool{
-        return FileManipulation.checkExistentFile(url: menuURL)
-    }
-    
-    
+
 }
-
-
-
-
-
-
-
-
