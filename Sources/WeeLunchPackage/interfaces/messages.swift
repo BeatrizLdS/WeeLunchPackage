@@ -10,21 +10,25 @@ import Foundation
 func showErrorMesage (erro: String) {
     let errorAnswerMessage = """
       \(generateTitle(title: "‼️ Erro: \(erro) ‼️"))
-                  Pressione Enter
-                  para continuar.
-      ---------------------------------------
     """
     print(errorAnswerMessage)
+    showPressEnterToContinue()
     pressEnterToContinue()
 }
 
 func showSuccessMessage (successAtivitie: String){
     let successMessage = """
       \(generateTitle(title: "✅ \(successAtivitie) realizada com sucesso ✅"))
+    """
+    print(successMessage)
+    showPressEnterToContinue()
+    pressEnterToContinue()
+}
+func showPressEnterToContinue(){
+    let text = """
                   Pressione Enter
                   para continuar.
       ---------------------------------------
     """
-    print(successMessage)
-    pressEnterToContinue()
+    print(text)
 }
