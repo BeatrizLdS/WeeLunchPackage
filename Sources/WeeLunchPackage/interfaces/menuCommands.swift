@@ -24,7 +24,7 @@ func executeFirstNavegationMenu() {
             let menuToOpen = Menu()
             menuToOpen.openMenu()
         case "3":
-            shell("Open helpdocument.txt")
+            showHelpDocument()
         case "0":
             print("  !WeeLuch Finalizado!")
             control = false
@@ -66,7 +66,7 @@ func createNewMenu(menu : Menu) {
             menu.creatFileMenu()
             control = false
         case "8":
-            shell("Open helpdocument.txt")
+            showHelpDocument()
         case "0":
             control = false
         default:
