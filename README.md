@@ -37,6 +37,7 @@ Adicione os alimentos disponíveis utilizando as opções 1, 2, 3, 4 e 5. Exempl
 ![add-alimento](images/Adicao-Alimentos.png)
 
 Liste todos os alimentos disponíveis selecionando a opção 6 do menu:
+
 ![list-alimento](images/Listagem-alimentos.png)
 
 Para remover um alimento, no menu de listagem, escolha o alimento e remova-o como no exemplo abaixo:
