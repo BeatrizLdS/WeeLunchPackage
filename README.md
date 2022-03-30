@@ -2,7 +2,7 @@
 # WeeLunch 🍴
 
 O WeeLunch possui como objetivo auxiliar as pessoas, que dispõem de pouco tempo durante o dia a dia, no planejamento dos almoços semanais. 
-O programa de terminal, feito em Swift, basea-se nos alimento disponíveis para gerar um cardápio semanal de refeições, o qual visa uma alimentação equilibrada e não repetitiva.
+O programa de terminal, feito em Swift, basea-se nos alimentos disponíveis para gerar um cardápio semanal de refeições, o qual visa uma alimentação equilibrada e não repetitiva.
 
 
 
